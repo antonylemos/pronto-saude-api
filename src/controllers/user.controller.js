@@ -2,12 +2,11 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const { User } = require('../models/user.model');
-const TokenUtils = require('../utils/Token.utils');
-const EmailService = require('../services/email.service');
+const TokenUtils = require('../utils/token.utils');
+const UserRepository = require('../repositories/user.repository')
 
 const router = express.Router();
 const userRepository = new UserRepository();
-const emailService = new EmailService();
 
 router.post('/login', [
     body('email').isEmail().withMessage('Email inválido'),
@@ -102,7 +101,6 @@ router.post('/forgot-password', async (req, res) => {
         user.setResetToken(resetToken);
         await userRepository.save(user);
 
-        emailService.sendResetPasswordEmail(user.getEmail(), resetToken);
 
         res.json({ message: 'Email de recuperação de senha enviado' });
     } catch (error) {

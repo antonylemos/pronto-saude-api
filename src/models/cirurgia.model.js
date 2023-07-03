@@ -1,8 +1,9 @@
 const { DataTypes } = require('sequelize');
 const Procedimento = require('./procedimento.model');
 const Arquivo = require('./arquivo.model');
+const sequelize = require('../config/database');
 
-const Cirurgia = Procedimento.define(
+const Cirurgia = sequelize.define(
     'Cirurgia',
     {
         classificacao: {

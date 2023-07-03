@@ -34,7 +34,6 @@ const Procedimento = sequelize.define(
     }
 );
 
-Procedimento.belongsTo(Paciente, { foreignKey: 'userId' });
 Procedimento.belongsTo(Estabelecimento, { foreignKey: 'estabelecimentoId' });
 Procedimento.belongsTo(Exame, { foreignKey: 'exameId' });
 

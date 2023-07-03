@@ -1,8 +1,9 @@
 const { DataTypes } = require('sequelize');
 const Arquivo = require('./arquivo.model');
 const Procedimento = require('./procedimento.model');
+const sequelize = require('../config/database');
 
-const Exame = Procedimento.define(
+const Exame = sequelize.define(
     'Exame',
     {
         id: {
