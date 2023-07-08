@@ -11,16 +11,7 @@ const s3 = new aws.S3();
 
 exports.findAll = async (req, res) => {
   try {
-    const { type, category } = req.query;
-    const where = {};
-
-    if (type) {where.type = type;}
-    if (category) {where.category = category;}
-
-    const response = await Alergia.findAll({
-      where
-    });
-
+    const response = await Alergia.findAll({});
     res.send(response);
   } catch (err) {
     res.status(500).send({ message: err.message || 'Some error occurred while retrieving list.' });
