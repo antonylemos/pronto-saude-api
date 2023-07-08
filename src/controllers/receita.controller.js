@@ -1,3 +1,91 @@
+const aws = require('aws-sdk');
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+
+const db = require('../models');
+
+const Receita = db.receitas;
+
+const s3 = new aws.S3();
+
+exports.findAll = async (req, res) => {
+  try {
+    const { type, category } = req.query;
+    const where = {};
+
+    if (type) {where.type = type;}
+    if (category) {where.category = category;}
+
+    const response = await Receita.findAll({
+      where
+    });
+
+    res.send(response);
+  } catch (err) {
+    res.status(500).send({ message: err.message || 'Some error occurred while retrieving list.' });
+  }
+};
+
+exports.find = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const response = await Receita.findByPk(id);
+
+    if (!response) {
+      return res.status(404).send({ message: 'Object not found.' });
+    }
+
+    res.send(response);
+  } catch (err) {
+    res.status(500).send({ message: err.message || `Error retrieving object with id=${id}` });
+  }
+};
+
+exports.create = async (req, res) => {
+  try {
+    const response = await Receita.create({ ...req.body });
+    res.send(response);
+  } catch (err) {
+    let errorMessage = err.message || 'Error creating object'
+    res.status(500).send({ message: errorMessage });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await Receita.update({ ...req.body}, { where: { id } });
+
+    if (response == 1) {
+      res.send({ message: 'Object was updated successfully.' });
+    } else {
+      res.send({ message: `Cannot update object with id=${id}` });
+    }
+  } catch (err) {
+    let errorMessage = err.message || `Error updating object with id=${id}`
+    res.status(500).send({ message: errorMessage });
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await Receita.destroy({ where: { id}, truncate: false })
+
+    if (response == 1) {
+      res.send({ message: 'Object was deleted successfully.' });
+    } else {
+      res.send({ message: `Cannot delete object with id=${id}` });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message || 'Some error occurred while removing this object.' });
+  }
+};
+
+// CONTROLLER ANTIGO
+/*
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
@@ -69,3 +157,4 @@ router.delete('/receitas', (req, res) => {
 });
 
 module.exports = router;
+*/
