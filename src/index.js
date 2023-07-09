@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 
-const db = require('./models');
+//const db = require('./models');
 
 const User = require("./models/user.model");
 const Procedimento = require("./models/procedimento.model");

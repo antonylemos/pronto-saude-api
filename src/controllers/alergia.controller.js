@@ -1,13 +1,4 @@
-const aws = require('aws-sdk');
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
-
-const db = require('../models');
-
-const Alergia = db.procedimentos;
-
-const s3 = new aws.S3();
+const { Alergia } = require("../models/alergia.model");
 
 exports.findAll = async (req, res) => {
   try {
