@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 
+const db = require('./models');
+
 const User = require("./models/user.model");
 const Procedimento = require("./models/procedimento.model");
 const Cirurgia = require("./models/cirurgia.model");
@@ -53,5 +55,17 @@ app.use(require("./controllers/item.controller"));
 app.use(require("./controllers/procedimento.controller"));
 app.use(require("./controllers/receita.controller"));
 app.use(require("./controllers/tratamento.controller"));
+
+require('./routes/user.routes')(app);
+require('./routes/alergia.routes')(app);
+require('./routes/arquivo.routes')(app);
+require('./routes/cirurgia.routes')(app);
+require('./routes/comorbidade.routes')(app);
+require('./routes/estabelecimento.routes')(app);
+require('./routes/exame.routes')(app);
+require('./routes/item.routes')(app);
+require('./routes/procedimento.routes')(app);
+require('./routes/receita.routes')(app);
+require('./routes/tratamento.routes')(app);
 
 app.listen(process.env.PORT || 8080);
