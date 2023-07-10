@@ -1,69 +1,36 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const Procedimento = require("./procedimento.model");
-const Alergia = require("./alergia.model");
-const Comorbidade = require("./comorbidade.model");
+const Sequelize = require('sequelize');
 
-const User = sequelize.define(
-  "User",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    telefone: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    dataNascimento: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    tipoSanguineo: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    resetToken: {
-      type: DataTypes.STRING,
-    },
+module.exports = {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-  {
-    tableName: "tb_usuarios",
-  }
-);
-
-User.hasMany(Procedimento, { foreignKey: "userId" });
-Procedimento.belongsTo(User, { foreignKey: "userId" });
-User.hasMany(Alergia, { foreignKey: "userId" });
-User.hasMany(Comorbidade, { foreignKey: "userId" });
-
-User.prototype.inserirExame = function (nomeExame, dataRealizacao) {
-  return Procedimento.create({
-    nomeExame,
-    dataRealizacao,
-    userId: this.id,
-  });
-};
-
-User.prototype.consultarHistorico = function () {
-  return Procedimento.findAll({ where: { userId: this.id } });
-};
-
-User.prototype.gerarRelatorio = function () {
-  // Lógica para gerar o relatório
-};
-
-module.exports = User;
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  birth_date: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
+  blood_type: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  reset_token: {
+    type: Sequelize.STRING,
+  },
+}

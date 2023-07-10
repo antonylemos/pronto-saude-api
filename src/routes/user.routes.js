@@ -7,7 +7,7 @@ module.exports = app => {
 
   router.post('/login', users.login);
 
-  router.post('/register/', users.register);
+  router.post('/register', users.register);
 
   router.put('/users', authMiddleware, users.update);
 
