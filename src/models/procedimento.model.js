@@ -34,7 +34,8 @@ const Procedimento = sequelize.define(
     }
 );
 
-Procedimento.belongsTo(Estabelecimento, { foreignKey: 'estabelecimentoId' });
+// Estabelecimento.hasOne(Procedimento, { foreignKey: 'procedimentoId' })
+// Procedimento.belongsTo(Estabelecimento, { foreignKey: 'estabelecimentoId' });
 Procedimento.belongsTo(Exame, { foreignKey: 'exameId' });
 
 Procedimento.prototype.baixar = function () {
