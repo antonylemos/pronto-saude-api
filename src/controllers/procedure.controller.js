@@ -25,7 +25,7 @@ exports.findAll = async (req, res) => {
 
     const response = await Procedure.findAll({
       where,
-      include: [{ model: User, as: 'user' }],
+      include: [{ model: Treatment, as: 'treatment' }],
     });
 
     res.send(response);

@@ -19,9 +19,7 @@ exports.register = async (req, res) => {
 
     const password = await bcrypt.hash(req.body.password, 10);
 
-    const healthInfo = formatHealthInfoToDatabase(req.body.health_info);
-
-    const user = await User.create({ ...req.body, password, health_info: healthInfo });
+    const user = await User.create({ ...req.body, password });
 
     delete user.dataValues.password;
 

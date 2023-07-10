@@ -5,7 +5,7 @@ const router = require('express').Router();
 const procedures = require('../controllers/procedure.controller.js');
 
 module.exports = app => {
-  router.get('/', procedures.findAll);
+  router.get('/', authMiddleware, procedures.findAll);
 
   router.get('/:id', procedures.find);
 
