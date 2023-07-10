@@ -44,6 +44,7 @@ app.use(
   await Estabelecimento.sync({ alter: true });
 })();
 
+/*
 app.use(require("./controllers/user.controller"));
 app.use(require("./controllers/alergia.controller"));
 app.use(require("./controllers/arquivo.controller"));
@@ -55,6 +56,7 @@ app.use(require("./controllers/item.controller"));
 app.use(require("./controllers/procedimento.controller"));
 app.use(require("./controllers/receita.controller"));
 app.use(require("./controllers/tratamento.controller"));
+*/
 
 require('./routes/user.routes')(app);
 require('./routes/alergia.routes')(app);
